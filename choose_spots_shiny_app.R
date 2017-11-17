@@ -11,7 +11,7 @@ library(shiny)
 library(plotly)
 
 ui <- fluidPage(
-  plotlyOutput("plot"),
+  plotlyOutput("plot", height = 680, width = 640),
   verbatimTextOutput("event")
 )
 
@@ -53,8 +53,8 @@ server <- function(input, output) {
   })
   
   output$event <- renderPrint({
-    d <- event_data("plotly_hover")
-    if (is.null(d)) "Hover on a point!" else d
+    d <- event_data("plotly_click")
+    if (is.null(d)) "Click on a spot to get the coordinates" else d
   })
 }
 
