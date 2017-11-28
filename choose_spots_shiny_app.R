@@ -11,8 +11,19 @@ library(shiny)
 library(plotly)
 
 ui <- fluidPage(
-  plotlyOutput("plot", height = 680, width = 640),
-  verbatimTextOutput("event")
+  titlePanel("Spatial spot visualization"), 
+  sidebarLayout(
+    sidebarPanel(
+      selectInput(inputId = "dataset",
+                  label = "Choose a dataset:",
+                  choices = c("D2", "E2"))
+    ),
+  mainPanel(
+    plotlyOutput("plot", height = 1020, width = 960),
+    verbatimTextOutput("event"), 
+    tableOutput("dataTable")
+  )
+)
 )
 
 server <- function(input, output) {
