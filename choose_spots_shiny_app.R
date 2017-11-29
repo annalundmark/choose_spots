@@ -1,12 +1,3 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
 library(shiny)
 library(plotly)
 
@@ -19,7 +10,7 @@ ui <- fluidPage(
                   choices = c("D2", "E2"))
     ),
   mainPanel(
-    plotlyOutput("plot", height = 1020, width = 960),
+    plotlyOutput("plot", height = 680, width = 640),
     verbatimTextOutput("event"), 
     tableOutput("dataTable")
   )
@@ -28,7 +19,8 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   
-  outfile <- "https://github.com/lundmarka/test/blob/master/D2_tissue.jpg?raw=true" #without spots
+  outfile_D2 <- "https://github.com/annalundmark/choose_spots/blob/master/D2_tissue.jpg?raw=true" #without spots
+  outfile_E2 <- "https://github.com/annalundmark/choose_spots/blob/master/E2_tissue.jpg?raw=true"
   
   ymin <- 2
   ymax <- 34
@@ -38,11 +30,15 @@ server <- function(input, output) {
   x <- c(rep(xmin:xmax, ymax - 1))
   y <- rep(ymin:ymax, each = xmax - 1)
   
-  # renderPlotly() also understands ggplot2 objects!
   output$plot <- renderPlotly({
     
-    
-    plot_ly(x = x, y = y, type = 'scatter', mode = 'markers', marker =  list(opacity = 0.3)) %>%
+    if (input$dataset == "D2") {
+      outfile <- outfile_D2
+    } else {
+      outfile <- outfile_E2
+    }
+  
+    plot_ly(x = x, y = y, type = 'scatter', mode = 'markers', marker =  list(color = "red", opacity = 0.3)) %>%
       layout(
         yaxis = list(autorange = "reversed"), 
         images = list(
