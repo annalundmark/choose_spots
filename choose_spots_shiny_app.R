@@ -34,8 +34,16 @@ server <- function(input, output) {
     
     if (input$dataset == "D2") {
       outfile <- outfile_D2
+      xpos <- -3.8
+      ypos <- 2.25
+      sizex <- 37.7
+      sizey <- 25.75
     } else {
       outfile <- outfile_E2
+      xpos <- -4.5
+      ypos <- 8.75
+      sizex <- 39.5
+      sizey <- 26.5
     }
   
     plot_ly(x = x, y = y, type = 'scatter', mode = 'markers', marker =  list(color = "red", opacity = 0.3)) %>%
@@ -46,10 +54,10 @@ server <- function(input, output) {
             source =  outfile,
             xref = "x",
             yref = "y",
-            x = -3.8,
-            y = 2.25,
-            sizex = 37.7,
-            sizey = 25.75,
+            x = xpos,
+            y = ypos,
+            sizex = sizex,
+            sizey = sizey,
             sizing = "stretch",
             opacity = 0.8,
             layer = "below"
